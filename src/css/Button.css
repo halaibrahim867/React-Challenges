@@ -19,6 +19,6 @@
 .button-container {
   text-align: center;
   margin-top: 20px;
-  border: solid 3px #0c5967;
+  border: 5px solid #0c5967;
   max-width: 300px;
 }

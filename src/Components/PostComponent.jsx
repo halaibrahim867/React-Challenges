@@ -1,10 +1,10 @@
 import "../css/Post.css";
-export default function PostComponent() {
+export default function PostComponent({ postTitle = "No Title", postContent }) {
   return (
     <div className="post">
-      <h2>This is a Post title</h2>
+      <h3>{postTitle}</h3>
       <hr />
-      <p>This is the post body</p>
+      <p>{postContent}</p>
     </div>
   );
 }
