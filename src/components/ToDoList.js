@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 import ToDo from "./ToDo";
 import { useState } from "react";
@@ -43,6 +45,38 @@ export default function ToDoList() {
 
           {/* ALL TODOS */}
           <ToDo />
+
+          {/* INPUT + ADD BUTTON */}
+
+          <Grid container style={{ marginTop: "20px" }} spacing={2}>
+            <Grid
+              size={8}
+              display="flex"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <TextField
+                style={{ width: "100%" }}
+                id="outlined-basic"
+                label="عنوان المهمه"
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid
+              size={4}
+              display="flex"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <Button
+                variant="contained"
+                style={{ width: "100%", height: "100%" }}
+              >
+                إضافه
+              </Button>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Container>
