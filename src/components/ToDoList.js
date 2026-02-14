@@ -22,11 +22,7 @@ export default function ToDoList() {
     <Container maxWidth="md">
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
-          <Typography
-            variant="h1"
-            gutterBottom
-            sx={{ color: "text.secondary" }}
-          >
+          <Typography variant="h1" style={{ fontWeight: "bold" }}>
             مهامي
           </Typography>
           <Divider />
