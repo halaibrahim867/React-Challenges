@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import ToDo from "./ToDo";
 import { useState } from "react";
 
-const todos = [
+const initialTodos = [
   {
     id: uuidv4(),
     title: "قراءه كتاب",
@@ -35,6 +35,8 @@ const todos = [
   },
 ];
 export default function ToDoList() {
+  const [todos, setTodos] = useState(initialTodos);
+  const [titleInput, setTitleInput] = useState("");
   const [alignment, setAlignment] = useState("web");
   const todosjsx = todos.map((t) => {
     return <ToDo key={t.id} title={t.title} details={t.details} />;
@@ -43,6 +45,17 @@ export default function ToDoList() {
     setAlignment(newAlignment);
   };
 
+  function handleAddClick() {
+    const newTodo = {
+      id: uuidv4(),
+      title: titleInput,
+      details: "",
+      isCompleted: false,
+    };
+
+    setTodos([...todos, newTodo]);
+    setTitleInput("");
+  }
   return (
     <Container maxWidth="md">
       <Card sx={{ minWidth: 275 }}>
@@ -83,6 +96,10 @@ export default function ToDoList() {
                 id="outlined-basic"
                 label="عنوان المهمه"
                 variant="outlined"
+                value={titleInput}
+                onChange={(e) => {
+                  setTitleInput(e.target.value);
+                }}
               />
             </Grid>
 
@@ -95,6 +112,9 @@ export default function ToDoList() {
               <Button
                 variant="contained"
                 style={{ width: "100%", height: "100%" }}
+                onClick={() => {
+                  handleAddClick();
+                }}
               >
                 إضافه
               </Button>
