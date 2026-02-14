@@ -8,7 +8,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Grid from "@mui/material/Grid";
 import CheckIcon from "@mui/icons-material/Check";
-export default function ToDo() {
+export default function ToDo({ title, details }) {
   return (
     <>
       <Card
@@ -24,10 +24,10 @@ export default function ToDo() {
           <Grid container spacing={2}>
             <Grid size={8}>
               <Typography variant="h5" gutterBottom sx={{ textAlign: "right" }}>
-                المهمه الاولي
+                {title}
               </Typography>
               <Typography variant="h6" gutterBottom sx={{ textAlign: "right" }}>
-                التفاصيل الخاصه بالمهمه الاولي
+                {details}
               </Typography>
             </Grid>
             {/* ACTIONS BUTTON */}

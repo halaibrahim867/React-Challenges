@@ -10,12 +10,35 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-
+import { v4 as uuidv4 } from "uuid";
 import ToDo from "./ToDo";
 import { useState } from "react";
+
+const todos = [
+  {
+    id: uuidv4(),
+    title: "قراءه كتاب",
+    details: "قراءه اول شابتر",
+    isCompleted: false,
+  },
+  {
+    id: uuidv4(),
+    title: "2 قراءه كتاب",
+    details: "قراءه ثاني شابتر",
+    isCompleted: false,
+  },
+  {
+    id: uuidv4(),
+    title: "3 قراءه كتاب",
+    details: "قراءه ثالث شابتر",
+    isCompleted: false,
+  },
+];
 export default function ToDoList() {
   const [alignment, setAlignment] = useState("web");
-
+  const todosjsx = todos.map((t) => {
+    return <ToDo key={t.id} title={t.title} details={t.details} />;
+  });
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -44,7 +67,7 @@ export default function ToDoList() {
           </ToggleButtonGroup>
 
           {/* ALL TODOS */}
-          <ToDo />
+          {todosjsx}
 
           {/* INPUT + ADD BUTTON */}
 
