@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
+import ToDo from "./ToDo";
 import { useState } from "react";
 export default function ToDoList() {
   const [alignment, setAlignment] = useState("web");
@@ -17,7 +19,7 @@ export default function ToDoList() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography
@@ -28,6 +30,8 @@ export default function ToDoList() {
             مهامي
           </Typography>
           <Divider />
+
+          {/* FILTER BUTTONS */}
           <ToggleButtonGroup
             style={{ direction: "ltr", marginTop: "30px" }}
             color="primary"
@@ -36,14 +40,14 @@ export default function ToDoList() {
             onChange={handleChange}
             aria-label="Platform"
           >
-            <ToggleButton value="android">المنجز</ToggleButton>
-            <ToggleButton value="ios">غير المنجز</ToggleButton>
-            <ToggleButton value="web">الكل</ToggleButton>
+            <ToggleButton value="المنجز">المنجز</ToggleButton>
+            <ToggleButton value="غير المنجز">غير المنجز</ToggleButton>
+            <ToggleButton value="الكل">الكل</ToggleButton>
           </ToggleButtonGroup>
+
+          {/* ALL TODOS */}
+          <ToDo />
         </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
       </Card>
     </Container>
   );
