@@ -38,8 +38,18 @@ export default function ToDoList() {
   const [todos, setTodos] = useState(initialTodos);
   const [titleInput, setTitleInput] = useState("");
   const [alignment, setAlignment] = useState("web");
+
+  function handleCheckClick(todoId) {
+    const updatedTodos = todos.map((t) => {
+      if (t.id === todoId) {
+        t.isCompleted = !t.isCompleted;
+      }
+      return t;
+    });
+    setTodos(updatedTodos);
+  }
   const todosjsx = todos.map((t) => {
-    return <ToDo key={t.id} title={t.title} details={t.details} />;
+    return <ToDo key={t.id} todo={t} handleCheck={handleCheckClick} />;
   });
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
