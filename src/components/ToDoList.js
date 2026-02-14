@@ -10,46 +10,20 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import { v4 as uuidv4 } from "uuid";
 import ToDo from "./ToDo";
+import { v4 as uuidv4 } from "uuid";
+
+import { TodosContext } from "../contexts/todosContext";
+import { useContext } from "react";
 import { useState } from "react";
 
-const initialTodos = [
-  {
-    id: uuidv4(),
-    title: "قراءه كتاب",
-    details: "قراءه اول شابتر",
-    isCompleted: false,
-  },
-  {
-    id: uuidv4(),
-    title: "2 قراءه كتاب",
-    details: "قراءه ثاني شابتر",
-    isCompleted: false,
-  },
-  {
-    id: uuidv4(),
-    title: "3 قراءه كتاب",
-    details: "قراءه ثالث شابتر",
-    isCompleted: false,
-  },
-];
 export default function ToDoList() {
-  const [todos, setTodos] = useState(initialTodos);
+  const { todos, setTodos } = useContext(TodosContext);
   const [titleInput, setTitleInput] = useState("");
   const [alignment, setAlignment] = useState("web");
 
-  function handleCheckClick(todoId) {
-    const updatedTodos = todos.map((t) => {
-      if (t.id === todoId) {
-        t.isCompleted = !t.isCompleted;
-      }
-      return t;
-    });
-    setTodos(updatedTodos);
-  }
   const todosjsx = todos.map((t) => {
-    return <ToDo key={t.id} todo={t} handleCheck={handleCheckClick} />;
+    return <ToDo key={t.id} todo={t} />;
   });
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);

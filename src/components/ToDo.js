@@ -8,9 +8,21 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Grid from "@mui/material/Grid";
 import CheckIcon from "@mui/icons-material/Check";
+import { useState } from "react";
+import { TodosContext } from "../contexts/todosContext";
+import { useContext } from "react";
+
 export default function ToDo({ todo, handleCheck }) {
+  const { todos, setTodos } = useContext(TodosContext);
+
   function handleCheckClick() {
-    handleCheck(todo.id);
+    const updatedTodos = todos.map((t) => {
+      if (t.id === todo.id) {
+        t.isCompleted = !t.isCompleted;
+      }
+      return t;
+    });
+    setTodos(updatedTodos);
   }
   return (
     <>
