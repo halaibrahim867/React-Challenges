@@ -3,17 +3,16 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Grid from "@mui/material/Grid";
 import CheckIcon from "@mui/icons-material/Check";
 export default function ToDo() {
   return (
     <>
       <Card
+        className="todoCard"
         sx={{
           minWidth: 275,
           background: "#283593",
@@ -27,6 +26,9 @@ export default function ToDo() {
               <Typography variant="h5" gutterBottom sx={{ textAlign: "right" }}>
                 المهمه الاولي
               </Typography>
+              <Typography variant="h6" gutterBottom sx={{ textAlign: "right" }}>
+                التفاصيل الخاصه بالمهمه الاولي
+              </Typography>
             </Grid>
             {/* ACTIONS BUTTON */}
             <Grid
@@ -36,6 +38,7 @@ export default function ToDo() {
               alignItems="center"
             >
               <IconButton
+                className="iconButton"
                 aria-label="check"
                 style={{
                   color: "#8bc34a",
@@ -46,24 +49,26 @@ export default function ToDo() {
                 <CheckIcon />
               </IconButton>
               <IconButton
+                className="iconButton"
                 aria-label="check"
                 style={{
-                  color: "#8bc34a",
+                  color: "#1769aa",
                   background: "white",
-                  border: "solid  #8bc34a 3px",
+                  border: "solid  #1769aa 3px",
                 }}
               >
-                <CheckIcon />
+                <EditOutlinedIcon />
               </IconButton>
               <IconButton
+                className="iconButton"
                 aria-label="check"
                 style={{
-                  color: "#8bc34a",
+                  color: "#b23c17",
                   background: "white",
-                  border: "solid  #8bc34a 3px",
+                  border: "solid #b23c17 3px",
                 }}
               >
-                <CheckIcon />
+                <DeleteOutlineOutlinedIcon />
               </IconButton>
             </Grid>
           </Grid>
