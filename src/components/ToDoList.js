@@ -14,8 +14,7 @@ import ToDo from "./ToDo";
 import { v4 as uuidv4 } from "uuid";
 
 import { TodosContext } from "../contexts/todosContext";
-import { useContext } from "react";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 
 export default function ToDoList() {
   const { todos, setTodos } = useContext(TodosContext);
@@ -29,6 +28,11 @@ export default function ToDoList() {
     setAlignment(newAlignment);
   };
 
+  useEffect(() => {
+    const storageTodos = JSON.parse(localStorage.getItem("todos"));
+    setTodos(storageTodos);
+  }, []); //calling for fisrt time when loading
+
   function handleAddClick() {
     const newTodo = {
       id: uuidv4(),
@@ -37,9 +41,12 @@ export default function ToDoList() {
       isCompleted: false,
     };
 
-    setTodos([...todos, newTodo]);
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
     setTitleInput("");
   }
+
   return (
     <Container maxWidth="md">
       <Card sx={{ minWidth: 275 }}>

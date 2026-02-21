@@ -45,6 +45,7 @@ export default function ToDo({ todo, handleCheck }) {
       return t.id !== todo.id;
     });
     setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   }
 
   function handleUpdateDialogClose() {
@@ -60,6 +61,7 @@ export default function ToDo({ todo, handleCheck }) {
     });
 
     setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
 
     setShowUpdateDialog(false);
   }
@@ -71,6 +73,7 @@ export default function ToDo({ todo, handleCheck }) {
       return t;
     });
     setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   }
 
   function handleSubmit() {}
