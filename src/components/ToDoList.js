@@ -14,16 +14,37 @@ import ToDo from "./ToDo";
 import { v4 as uuidv4 } from "uuid";
 
 import { TodosContext } from "../contexts/todosContext";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, use } from "react";
 
 export default function ToDoList() {
   const { todos, setTodos } = useContext(TodosContext);
   const [titleInput, setTitleInput] = useState("");
+  const [displayedTodosType, setDisplayedTodosType] = useState("all");
   const [alignment, setAlignment] = useState("web");
 
-  const todosjsx = todos.map((t) => {
+  //filteration arrays
+  const completedTodos = todos.filter((t) => {
+    return t.isCompleted;
+  });
+
+  const nonCompletedTodos = todos.filter((t) => {
+    return !t.isCompleted;
+  });
+
+  let todosToBeRendered = todos;
+
+  if (displayedTodosType === "completed") {
+    todosToBeRendered = completedTodos;
+  } else if (displayedTodosType === "non-completed") {
+    todosToBeRendered = nonCompletedTodos;
+  } else {
+    todosToBeRendered = todos;
+  }
+
+  const todosjsx = todosToBeRendered.map((t) => {
     return <ToDo key={t.id} todo={t} />;
   });
+
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -32,6 +53,10 @@ export default function ToDoList() {
     const storageTodos = JSON.parse(localStorage.getItem("todos"));
     setTodos(storageTodos);
   }, []); //calling for fisrt time when loading
+
+  function changeDisplayedType(e) {
+    setDisplayedTodosType(e.target.value);
+  }
 
   function handleAddClick() {
     const newTodo = {
@@ -60,14 +85,14 @@ export default function ToDoList() {
           <ToggleButtonGroup
             style={{ direction: "ltr", marginTop: "30px" }}
             color="primary"
-            value={alignment}
+            value={displayedTodosType}
             exclusive
-            onChange={handleChange}
+            onChange={changeDisplayedType}
             aria-label="Platform"
           >
-            <ToggleButton value="المنجز">المنجز</ToggleButton>
-            <ToggleButton value="غير المنجز">غير المنجز</ToggleButton>
-            <ToggleButton value="الكل">الكل</ToggleButton>
+            <ToggleButton value="completed">المنجز</ToggleButton>
+            <ToggleButton value="non-completed">غير المنجز</ToggleButton>
+            <ToggleButton value="all">الكل</ToggleButton>
           </ToggleButtonGroup>
 
           {/* ALL TODOS */}
