@@ -74,7 +74,13 @@ export default function ToDoList() {
 
   return (
     <Container maxWidth="md">
-      <Card sx={{ minWidth: 275 }}>
+      <Card
+        sx={{ minWidth: 275 }}
+        style={{
+          maxHeight: "80vh",
+          overflow: "scroll",
+        }}
+      >
         <CardContent>
           <Typography variant="h1" style={{ fontWeight: "bold" }}>
             مهامي
@@ -131,6 +137,7 @@ export default function ToDoList() {
                 onClick={() => {
                   handleAddClick();
                 }}
+                disabled={titleInput.length === 0}
               >
                 إضافه
               </Button>

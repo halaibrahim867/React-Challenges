@@ -10,6 +10,12 @@ const theme = createTheme({
   typography: {
     fontFamily: ["Alexandria"],
   },
+
+  palette: {
+    primary: {
+      main: "#004d40",
+    },
+  },
 });
 const initialTodos = [
   {
