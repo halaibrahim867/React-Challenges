@@ -14,7 +14,7 @@ import ToDo from "./ToDo";
 import { v4 as uuidv4 } from "uuid";
 
 import { TodosContext } from "../contexts/todosContext";
-import { useState, useContext, useEffect, use } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 
 export default function ToDoList() {
   const { todos, setTodos } = useContext(TodosContext);
@@ -23,14 +23,18 @@ export default function ToDoList() {
   const [alignment, setAlignment] = useState("web");
 
   //filteration arrays
-  const completedTodos = todos.filter((t) => {
-    return t.isCompleted;
-  });
 
-  const nonCompletedTodos = todos.filter((t) => {
-    return !t.isCompleted;
-  });
+  const completedTodos = useMemo(() => {
+    return todos.filter((t) => {
+      return t.isCompleted;
+    });
+  }, [todos]);
 
+  const nonCompletedTodos = useMemo(() => {
+    return todos.filter((t) => {
+      return !t.isCompleted;
+    });
+  }, [todos]);
   let todosToBeRendered = todos;
 
   if (displayedTodosType === "completed") {
@@ -50,7 +54,7 @@ export default function ToDoList() {
   };
 
   useEffect(() => {
-    const storageTodos = JSON.parse(localStorage.getItem("todos"));
+    const storageTodos = JSON.parse(localStorage.getItem("todos")) ?? [];
     setTodos(storageTodos);
   }, []); //calling for fisrt time when loading
 
