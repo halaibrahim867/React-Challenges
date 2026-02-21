@@ -12,16 +12,7 @@ import { useState } from "react";
 import { TodosContext } from "../contexts/todosContext";
 import { useContext } from "react";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
-
-export default function ToDo({ todo, handleCheck }) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [showUpdateDialog, setShowUpdateDialog] = useState(false);
+export default function ToDo({ todo, showDelete, showUpdate }) {
   const [updatedTodo, setUpdatedTodo] = useState({
     title: todo.title,
     details: todo.details,
@@ -30,41 +21,13 @@ export default function ToDo({ todo, handleCheck }) {
 
   //   EVENTS
 
-  function handleDeleteClick() {
-    setShowDeleteDialog(true);
-  }
   function handleUpdateClick() {
-    setShowUpdateDialog(true);
+    showUpdate(todo);
   }
-  function handleDeleteDialogClose() {
-    setShowDeleteDialog(false);
-  }
-
-  function handleDeleteConfirm() {
-    const updatedTodos = todos.filter((t) => {
-      return t.id !== todo.id;
-    });
-    setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  function handleDeleteClick() {
+    showDelete(todo);
   }
 
-  function handleUpdateDialogClose() {
-    setShowUpdateDialog(false);
-  }
-  function handleUpdateConfirm() {
-    const updatedTodos = todos.map((t) => {
-      if (t.id === todo.id) {
-        return { ...t, title: updatedTodo.title, details: updatedTodo.details };
-      } else {
-        return t;
-      }
-    });
-
-    setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
-
-    setShowUpdateDialog(false);
-  }
   function handleCheckClick() {
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
@@ -79,77 +42,6 @@ export default function ToDo({ todo, handleCheck }) {
   function handleSubmit() {}
   return (
     <>
-      {/* DELETE MODAL  */}
-      <Dialog
-        style={{ direction: "rtl" }}
-        onClose={handleDeleteDialogClose}
-        open={showDeleteDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          هل انت متأكد كم رغبتك في حذف المهمه؟
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            لا يمكنك التراجع عن الحذف بعد إتمامه
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDeleteDialogClose}>إغلاق</Button>
-          <Button autoFocus onClick={handleDeleteConfirm}>
-            نعم، قم بالحذف
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* UPDATE DIALOG */}
-      <Dialog
-        style={{ direction: "rtl" }}
-        onClose={handleUpdateDialogClose}
-        open={showUpdateDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">تعديل مهمه</DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleSubmit} id="subscription-form">
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="name"
-              label=" عنوان المهمه"
-              fullWidth
-              variant="standard"
-              value={updatedTodo.title}
-              onChange={(e) => {
-                setUpdatedTodo({ ...updatedTodo, title: e.target.value });
-              }}
-            />
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="name"
-              label=" تفاصيل المهمه"
-              fullWidth
-              variant="standard"
-              value={updatedTodo.details}
-              onChange={(e) => {
-                setUpdatedTodo({ ...updatedTodo, details: e.target.value });
-              }}
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleUpdateDialogClose}>إغلاق</Button>
-          <Button autoFocus onClick={handleUpdateConfirm}>
-            تأكيد
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <Card
         className="todoCard"
         sx={{
