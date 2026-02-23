@@ -1,7 +1,5 @@
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -11,6 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { TodosContext } from "../contexts/todosContext";
 import { useContext } from "react";
+import { ToastContext } from "../contexts/ToastContext";
 
 export default function ToDo({ todo, showDelete, showUpdate }) {
   const [updatedTodo, setUpdatedTodo] = useState({
@@ -19,6 +18,7 @@ export default function ToDo({ todo, showDelete, showUpdate }) {
   });
   const { todos, setTodos } = useContext(TodosContext);
 
+  const { showHideToast } = useContext(ToastContext);
   //   EVENTS
 
   function handleUpdateClick() {
@@ -37,6 +37,7 @@ export default function ToDo({ todo, showDelete, showUpdate }) {
     });
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    showHideToast("تم التعديل بنجاح");
   }
 
   function handleSubmit() {}

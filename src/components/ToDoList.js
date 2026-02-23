@@ -20,10 +20,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import { TodosContext } from "../contexts/todosContext";
+import { ToastContext } from "../contexts/ToastContext";
 import { useState, useContext, useEffect, useMemo } from "react";
 
 export default function ToDoList() {
   const { todos, setTodos } = useContext(TodosContext);
+  const { showHideToast } = useContext(ToastContext);
   const [titleInput, setTitleInput] = useState("");
   const [displayedTodosType, setDisplayedTodosType] = useState("all");
   const [alignment, setAlignment] = useState("web");
@@ -51,6 +53,7 @@ export default function ToDoList() {
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
     setShowDeleteDialog(false);
+    showHideToast("تم الحذف بنجاح");
   }
 
   function openUpdateDialog(todo) {
@@ -72,6 +75,7 @@ export default function ToDoList() {
     setTodos(updatedTodos);
     setShowUpdateDialog(false);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    showHideToast("تم التعديل بنجاح");
   }
   //filteration arrays
   const completedTodos = useMemo(() => {
@@ -131,6 +135,7 @@ export default function ToDoList() {
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
     setTitleInput("");
+    showHideToast("تمت الاضافه بنجاح");
   }
 
   return (
