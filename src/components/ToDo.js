@@ -9,7 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { TodosContext } from "../contexts/todosContext";
 import { useContext } from "react";
-import { ToastContext } from "../contexts/ToastContext";
+import { useToast } from "../contexts/ToastContext";
 
 export default function ToDo({ todo, showDelete, showUpdate }) {
   const [updatedTodo, setUpdatedTodo] = useState({
@@ -18,7 +18,7 @@ export default function ToDo({ todo, showDelete, showUpdate }) {
   });
   const { todos, setTodos } = useContext(TodosContext);
 
-  const { showHideToast } = useContext(ToastContext);
+  const { showHideToast } = useToast();
   //   EVENTS
 
   function handleUpdateClick() {
