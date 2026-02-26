@@ -19,13 +19,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import { TodosContext } from "../contexts/todosContext";
+import { useTodos, useTodosDispatch } from "../contexts/todosContext";
 import { useToast } from "../contexts/ToastContext";
-import { useState, useContext, useEffect, useMemo, useReducer } from "react";
+import { useState, useEffect, useMemo } from "react";
 import todosReducer from "../reducers/todosReducer";
 
 export default function ToDoList() {
-  const [todos, dispatch] = useReducer(todosReducer, []);
+  const todos = useTodos();
+
+  const dispatch = useTodosDispatch();
   const { showHideToast } = useToast();
   const [titleInput, setTitleInput] = useState("");
   const [displayedTodosType, setDisplayedTodosType] = useState("all");

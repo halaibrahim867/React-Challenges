@@ -6,18 +6,11 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Grid from "@mui/material/Grid";
 import CheckIcon from "@mui/icons-material/Check";
-import { useState } from "react";
-import { TodosContext } from "../contexts/todosContext";
-import { useContext } from "react";
+import { useTodosDispatch } from "../contexts/todosContext";
 import { useToast } from "../contexts/ToastContext";
 
 export default function ToDo({ todo, showDelete, showUpdate }) {
-  const [updatedTodo, setUpdatedTodo] = useState({
-    title: todo.title,
-    details: todo.details,
-  });
-  const { todos, setTodos } = useContext(TodosContext);
-
+  const dispatch = useTodosDispatch();
   const { showHideToast } = useToast();
   //   EVENTS
 
@@ -29,14 +22,7 @@ export default function ToDo({ todo, showDelete, showUpdate }) {
   }
 
   function handleCheckClick() {
-    const updatedTodos = todos.map((t) => {
-      if (t.id === todo.id) {
-        t.isCompleted = !t.isCompleted;
-      }
-      return t;
-    });
-    setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    dispatch({ type: "toggledCompleted", payload: todo });
     showHideToast("تم التعديل بنجاح");
   }
 
